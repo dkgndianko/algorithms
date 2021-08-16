@@ -1,0 +1,1 @@
+This is the implementation of the specific case (0-1) of knapsack problem. This is described in [Wikipedia](https://en.wikipedia.org/wiki/Knapsack_problem#0-1_knapsack_problem)
