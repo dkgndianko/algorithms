@@ -12,4 +12,4 @@ knapsack t all@((i, w, v):xs)
 			(t2, w2, r2) = (knapsack t xs)
 
 -- exemple of usage
-knapsack 11 [(2, 3, 4), (3, 4, 5), (4, 5, 6)]
+--knapsack 11 [(2, 3, 4), (3, 4, 5), (4, 5, 6)]
