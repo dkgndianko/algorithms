@@ -1,5 +1,6 @@
 from itertools import chain
 from functools import reduce
+from queue import LifoQueue
 class Flattened(object):
 
     def __init__(self, l) -> None:
@@ -32,6 +33,22 @@ def flatten_with_yeild(l):
         else:
             yield element
 
+def flatten_with_stack(l):
+    stack = LifoQueue(2*len(l))
+    stack.put(l)
+    result = []
+    while stack.empty() is False:
+        current = stack.get()
+        for index, element in enumerate(current):
+            if isinstance(element, list):
+                stack.put(current[index+1:])
+                stack.put(element)
+                break
+            else:
+                result.append(element)
+    return result
+
+
 def flatten_with_reduce(l):
     return reduce(lambda acc, el: acc + (flatten_with_reduce(el) if isinstance(el, list) else [el]), l, [])
 
@@ -40,7 +57,7 @@ def flatten_with_chain(l):
 
 def test_flatten():
     input_list = [2, [2, 3, 4], 5, [6, 7, 8, 9], [[10], [11, [12, 13, 14], 15]]]
-    functions = [Flattened, flatten_with_yeild, flatten_with_reduce, flatten_with_chain]
+    functions = [Flattened, flatten_with_yeild, flatten_with_reduce, flatten_with_chain, flatten_with_stack]
     for flatten_function in functions:
         result = flatten_function(input_list)
         print(f"{flatten_function.__name__}: {list(result)}")
